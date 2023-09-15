@@ -281,6 +281,7 @@ class FeedEntry(object):
         self.url = kwargs.get('url')
         self.id = kwargs.get('id', self.url)
         self.updated = kwargs.get('updated')
+        self.comments = kwargs.get('comments')
         self.summary = kwargs.get('summary')
         self.summary_type = kwargs.get('summary_type', 'html')
         self.author = kwargs.get('author', ())
@@ -324,6 +325,8 @@ class FeedEntry(object):
                   format_iso8601(self.published)
         if self.url:
             yield u'  <link href="%s" />\n' % escape(self.url)
+        if self.comments:
+            yield u'  <link href="%s" />\n' % escape(self.comments)    
         for author in self.author:
             yield u'  <author>\n'
             yield u'    <name>%s</name>\n' % escape(author['name'])
